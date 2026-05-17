@@ -20,16 +20,31 @@ export const ResumePDFSkills = ({
 }) => {
   const { descriptions, featuredSkills } = skills;
   const featuredSkillsWithText = featuredSkills.filter((item) => item.skill);
+  const shouldUseFeaturedSkillGrid =
+    featuredSkillsWithText.length > 0 &&
+    featuredSkillsWithText.length <= 4 &&
+    featuredSkillsWithText.every((item) => item.skill.length <= 24);
   const featuredSkillsPair = [
     [featuredSkillsWithText[0], featuredSkillsWithText[3]],
     [featuredSkillsWithText[1], featuredSkillsWithText[4]],
     [featuredSkillsWithText[2], featuredSkillsWithText[5]],
   ];
+  const mergedDescriptions = shouldUseFeaturedSkillGrid
+    ? descriptions
+    : [
+        ...featuredSkillsWithText.map(
+          (item) => `${item.skill} (${Math.max(item.rating, 0)}/5)`
+        ),
+        ...descriptions,
+      ];
 
   return (
     <ResumePDFSection themeColor={themeColor} heading={heading}>
-      {featuredSkillsWithText.length > 0 && (
-        <View style={{ ...styles.flexRowBetween, marginTop: spacing["0.5"] }}>
+      {shouldUseFeaturedSkillGrid && (
+        <View
+          testID="resume-featured-skills-widget"
+          style={{ ...styles.flexRowBetween, marginTop: spacing["0.5"] }}
+        >
           {featuredSkillsPair.map((pair, idx) => (
             <View
               key={idx}
@@ -45,6 +60,7 @@ export const ResumePDFSkills = ({
                     skill={featuredSkill.skill}
                     rating={featuredSkill.rating}
                     themeColor={themeColor}
+                    testID="resume-featured-skill"
                     style={{
                       justifyContent: "flex-end",
                     }}
@@ -57,7 +73,7 @@ export const ResumePDFSkills = ({
       )}
       <View style={{ ...styles.flexCol }}>
         <ResumePDFBulletList
-          items={descriptions}
+          items={mergedDescriptions}
           showBulletPoints={showBulletPoints}
         />
       </View>
