@@ -32,9 +32,7 @@ export const ResumePDFSkills = ({
   const mergedDescriptions = shouldUseFeaturedSkillGrid
     ? descriptions
     : [
-        ...featuredSkillsWithText.map(
-          (item) => `${item.skill} (${Math.max(item.rating, 0)}/5)`
-        ),
+        ...featuredSkillsWithText.map((item) => item.skill),
         ...descriptions,
       ];
 

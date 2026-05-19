@@ -11,11 +11,13 @@ export const ResumePDFCustom = ({
   custom,
   themeColor,
   showBulletPoints,
+  isPDF = false,
 }: {
   heading: string;
   custom: ResumeCustom;
   themeColor: string;
   showBulletPoints: boolean;
+  isPDF?: boolean;
 }) => {
   const { descriptions } = custom;
 
@@ -25,6 +27,8 @@ export const ResumePDFCustom = ({
         <ResumePDFBulletList
           items={descriptions}
           showBulletPoints={showBulletPoints}
+          isPDF={isPDF}
+          themeColor={themeColor}
         />
       </View>
     </ResumePDFSection>

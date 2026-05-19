@@ -88,6 +88,7 @@ export const ResumePDF = ({
         custom={custom}
         themeColor={themeColor}
         showBulletPoints={showBulletPoints["custom"]}
+        isPDF={isPDF}
       />
     ),
   };
@@ -102,23 +103,23 @@ export const ResumePDF = ({
             color: DEFAULT_FONT_COLOR,
             fontFamily,
             fontSize: fontSize + "pt",
+            padding: `${spacing[8]} ${spacing[20]}`,
           }}
         >
           {Boolean(settings.themeColor) && (
             <View
+              fixed
               style={{
-                width: spacing["full"],
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
                 height: spacing[3.5],
                 backgroundColor: themeColor,
               }}
             />
           )}
-          <View
-            style={{
-              ...styles.flexCol,
-              padding: `${spacing[0]} ${spacing[20]}`,
-            }}
-          >
+          <View style={{ ...styles.flexCol }}>
             <ResumePDFProfile
               profile={profile}
               themeColor={themeColor}

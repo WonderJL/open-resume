@@ -76,12 +76,53 @@ export const ResumePDFText = ({
   );
 };
 
+const INLINE_LINK_PATTERN = /\[([^\]]+)\]\(([^)]+)\)/g;
+
+const renderInline = (
+  text: string,
+  isPDF: boolean,
+  themeColor?: string
+): React.ReactNode[] => {
+  const nodes: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let keyIdx = 0;
+  let match: RegExpExecArray | null;
+  INLINE_LINK_PATTERN.lastIndex = 0;
+  while ((match = INLINE_LINK_PATTERN.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(text.slice(lastIndex, match.index));
+    }
+    const [, label, href] = match;
+    nodes.push(
+      <Link
+        key={`link-${keyIdx++}`}
+        src={href}
+        style={{
+          color: themeColor || DEFAULT_FONT_COLOR,
+          textDecoration: "underline",
+        }}
+      >
+        {label}
+      </Link>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    nodes.push(text.slice(lastIndex));
+  }
+  return nodes.length > 0 ? nodes : [text];
+};
+
 export const ResumePDFBulletList = ({
   items,
   showBulletPoints = true,
+  isPDF = false,
+  themeColor,
 }: {
   items: string[];
   showBulletPoints?: boolean;
+  isPDF?: boolean;
+  themeColor?: string;
 }) => {
   return (
     <>
@@ -104,7 +145,7 @@ export const ResumePDFBulletList = ({
           <ResumePDFText
             style={{ lineHeight: "1.3", flexGrow: 1, flexBasis: 0 }}
           >
-            {item}
+            {renderInline(item, isPDF, themeColor)}
           </ResumePDFText>
         </View>
       ))}
