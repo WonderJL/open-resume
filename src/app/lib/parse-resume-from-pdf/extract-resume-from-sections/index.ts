@@ -30,7 +30,10 @@ export const extractResumeFromSections = (
   const { skills } = extractSkills(sections);
 
   return {
-    profile,
+    profile: {
+      ...profile,
+      github: "",
+    },
     educations,
     workExperiences,
     projects,

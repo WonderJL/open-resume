@@ -40,7 +40,10 @@ export const ResumePDFSkills = ({
     <ResumePDFSection themeColor={themeColor} heading={heading}>
       {shouldUseFeaturedSkillGrid && (
         <View
-          testID="resume-featured-skills-widget"
+          {...({ testID: "resume-featured-skills-widget" } as Record<
+            string,
+            string
+          >)}
           style={{ ...styles.flexRowBetween, marginTop: spacing["0.5"] }}
         >
           {featuredSkillsPair.map((pair, idx) => (

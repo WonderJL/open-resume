@@ -54,6 +54,50 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
   },
+  profileHeader: {
+    borderTopWidth: "4.5pt",
+    paddingTop: spacing["6"],
+  },
+  profileNameBlock: {
+    display: "flex",
+    width: "100%",
+  },
+  profileSummaryBlock: {
+    display: "flex",
+    width: "100%",
+  },
+  profileSummary: {
+    marginTop: spacing["1.5"],
+    lineHeight: "1.35",
+  },
+  profileContactRow: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: spacing["2.5"],
+    marginTop: spacing["3"],
+  },
+  profileContactItem: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing["1"],
+  },
+  section: {
+    gap: spacing["2.5"],
+    marginTop: spacing["6"],
+  },
+  sectionHeading: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  bulletRow: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
   icon: {
     width: "13pt",
     height: "13pt",

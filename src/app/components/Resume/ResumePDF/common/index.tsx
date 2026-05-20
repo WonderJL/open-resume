@@ -18,13 +18,12 @@ export const ResumePDFSection = ({
   <View
     style={{
       ...styles.flexCol,
-      gap: spacing["2"],
-      marginTop: spacing["5"],
+      ...styles.section,
       ...style,
     }}
   >
     {heading && (
-      <View style={{ ...styles.flexRow, alignItems: "center" }}>
+      <View style={styles.sectionHeading}>
         {themeColor && (
           <View
             style={{
@@ -127,13 +126,20 @@ export const ResumePDFBulletList = ({
   return (
     <>
       {items.map((item, idx) => (
-        <View style={{ ...styles.flexRow }} key={idx} wrap={false}>
+        <View
+          style={{
+            ...styles.bulletRow,
+            marginTop: idx === 0 ? 0 : spacing["1"],
+          }}
+          key={idx}
+          wrap={false}
+        >
           {showBulletPoints && (
             <ResumePDFText
               style={{
                 paddingLeft: spacing["2"],
-                paddingRight: spacing["2"],
-                lineHeight: "1.3",
+                paddingRight: spacing["1.5"],
+                lineHeight: "1.35",
               }}
               bold={true}
             >
@@ -143,7 +149,7 @@ export const ResumePDFBulletList = ({
           {/* A breaking change was introduced causing text layout to be wider than node's width
               https://github.com/diegomura/react-pdf/issues/2182. flexGrow & flexBasis fixes it */}
           <ResumePDFText
-            style={{ lineHeight: "1.3", flexGrow: 1, flexBasis: 0 }}
+            style={{ lineHeight: "1.35", flexGrow: 1, flexBasis: 0 }}
           >
             {renderInline(item, isPDF, themeColor)}
           </ResumePDFText>
@@ -198,7 +204,7 @@ export const ResumeFeaturedSkill = ({
 
   return (
     <View
-      testID={testID}
+      {...(testID ? ({ testID } as Record<string, string>) : {})}
       style={{ ...styles.flexRow, alignItems: "center", ...style }}
     >
       <ResumePDFText style={{ marginRight: spacing[0.5] }}>

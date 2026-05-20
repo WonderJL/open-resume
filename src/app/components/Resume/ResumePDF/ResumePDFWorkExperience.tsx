@@ -26,6 +26,7 @@ export const ResumePDFWorkExperience = ({
         return (
           <View
             key={idx}
+            break={company === "South China Morning Post"}
             wrap={false}
             style={idx !== 0 ? { marginTop: spacing["2"] } : {}}
           >
